@@ -15,5 +15,5 @@ jobs:
     - name: Run a one-line script
       run: |
         echo Hello, world!
-        echo ${{github.event.base_ref}}
-        echo ${{github.ref}}
+#        echo ${{github.push.base_ref}}
+#        echo ${{github.ref}}
