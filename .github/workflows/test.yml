@@ -7,7 +7,6 @@ on:
 
 jobs:
   build:
-    if: ${{ "${{github.ref}}" == refs/heads/infrastructure/* }}
     runs-on: ubuntu-latest
 
     steps:
