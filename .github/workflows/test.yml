@@ -5,7 +5,7 @@ on:
     paths:
       - .github/workflows/test.yml
     branches:
-      - infrastructure/**
+      - infrastructure/*env/**
 
 jobs:
   selectenv:
