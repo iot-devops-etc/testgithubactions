@@ -11,7 +11,7 @@ jobs:
   selectenv:
     name: Select the environment
     runs-on: ubuntu-latest
-    environment: Csaba-env # create compound actions to select environment based on e.g branch and include this one with
+    environment: Andrew-env # create compound actions to select environment based on e.g branch and include this one with
     steps:
     - uses: actions/checkout@v2
     - name: Determine environment
@@ -28,7 +28,7 @@ jobs:
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: Csaba-env
+    environment: Andrew-env
     needs: selectenv
     if: ${{ needs.selectenv.outputs.environment }}
     env:
