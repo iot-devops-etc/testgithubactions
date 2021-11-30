@@ -22,6 +22,8 @@ jobs:
           echo "::set-output name=environment::andrew-env"
         elif [[ "${{ github.ref }}" == refs/heads/infrastructure/joshi-env/** ]]; then
           echo "::set-output name=environment::joshi-env"
+        else
+          echo "The branch name does not contain a valid environment."
         fi
   showenv:
     name: Show the selected environment
