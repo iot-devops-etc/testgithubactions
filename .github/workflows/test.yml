@@ -43,3 +43,4 @@ jobs:
           echo "CSABA_ENV_SECRET is defined in the environment."
         if [[ ${{ secrets.JOSHI_ENV_SECRET }} == 'ENV' ]]; then
           echo "JOSHI_ENV_SECRET is defined in the environment."
+        echo "I need this change to the environment."
