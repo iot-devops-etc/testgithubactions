@@ -14,9 +14,12 @@ jobs:
   selectenv:
     name: Select the environment
     runs-on: ubuntu-latest
+    outputs:
+      myvariable: ${{steps.detenv.outputs.myvariable}}
     steps:
     - uses: actions/checkout@v2
     - name: Determine environment
+      id: detenv
       run: |
         if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env ]]; then
           echo "::set-output name=myvariable::csaba-env"
@@ -32,9 +35,9 @@ jobs:
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: ${{steps.selectenv.outputs.myvariable}}
+    environment: ${{needs.selectenv.outputs.myvariable}}
     needs: selectenv
     steps:
     - name: Show command for environment
       run: |
-        echo "This will deploy to ${{steps.selectenv.outputs.myvariable}}"
+        echo "This will deploy to ${{needs.selectenv.outputs.myvariable}}"
