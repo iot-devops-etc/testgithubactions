@@ -32,9 +32,9 @@ jobs:
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: ${{needs.selectenv.outputs.myvariable}}
+    environment: ${{steps.selectenv.outputs.myvariable}}
     needs: selectenv
     steps:
     - name: Show command for environment
       run: |
-        echo "This will deploy to ${{needs.selectenv.outputs.myvariable}}"
+        echo "This will deploy to ${{steps.selectenv.outputs.myvariable}}"
