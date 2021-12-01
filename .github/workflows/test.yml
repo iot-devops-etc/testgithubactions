@@ -5,7 +5,10 @@ on:
     paths:
       - .github/workflows/test.yml
     branches:
-      - feature/*/*
+      - feature/csaba-env
+      - feature/andrew-env
+      - feature/joshi-env
+      - feature/infrastructure
 
 jobs:
   selectenv:
@@ -15,13 +18,13 @@ jobs:
     - uses: actions/checkout@v2
     - name: Determine environment
       run: |
-        if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env/** ]]; then
+        if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env ]]; then
           echo "::set-output name=environment::csaba-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env/** ]]; then
+        elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env ]]; then
           echo "::set-output name=environment::andrew-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env/** ]]; then
+        elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env ]]; then
           echo "::set-output name=environment::joshi-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/infrastructure/** ]]; then
+        elif [[ "${{ github.ref }}" == refs/heads/feature/infrastructure ]]; then
           echo "::set-output name=environment::infrastructure"
         else
           echo "The branch name does not contain a valid environment."
@@ -35,4 +38,3 @@ jobs:
     - name: Show command for environment
       run: |
         echo "This will deploy to ${{needs.selectenv.outputs.environment}}"
-        echo "I added my group to the protection rules."
