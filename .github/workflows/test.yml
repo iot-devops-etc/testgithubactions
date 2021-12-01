@@ -11,35 +11,27 @@ jobs:
   selectenv:
     name: Select the environment
     runs-on: ubuntu-latest
-    environment: Csaba-env # create compound actions to select environment based on e.g branch and include this one with
     steps:
     - uses: actions/checkout@v2
     - name: Determine environment
       run: |
-        if [[ "${{ github.ref }}" == refs/heads/infrastructure/csaba-env/** ]]; then
+        if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env/* ]]; then
           echo "::set-output name=environment::csaba-env"
-        elif [[ "${{ github.ref }}" == refs/heads/infrastructure/andrew-env/** ]]; then
+        elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env/* ]]; then
           echo "::set-output name=environment::andrew-env"
-        elif [[ "${{ github.ref }}" == refs/heads/infrastructure/joshi-env/** ]]; then
+        elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env/* ]]; then
           echo "::set-output name=environment::joshi-env"
+        elif [[ "${{ github.ref }}" == refs/heads/feature/infrastructure/* ]]; then
+          echo "::set-output name=environment::infrastructure"
         else
           echo "The branch name does not contain a valid environment."
         fi
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: Csaba-env
+    environment: ${{ needs.selectenv.outputs.environment }}
     needs: selectenv
-    if: ${{ needs.selectenv.outputs.environment }}
-    env:
-      MYENV: ${{ needs.selectenv.outputs.environment }}
     steps:
     - name: Show command for environment
       run: |
-        echo "This will deploy to ${{ env.MYENV }}"
-        if [[ ${{ secrets.ANDREW_ENV_SECRET }} == 'ENV' ]]; then
-          echo "ANDREW_ENV_SECRET is defined in the environment."
-        if [[ ${{ secrets.CSABA_ENV_SECRET }} == 'ENV' ]]; then
-          echo "CSABA_ENV_SECRET is defined in the environment."
-        if [[ ${{ secrets.JOSHI_ENV_SECRET }} == 'ENV' ]]; then
-          echo "JOSHI_ENV_SECRET is defined in the environment."
+        echo "This will deploy to ${{ needs.selectenv.outputs.environment }}"
