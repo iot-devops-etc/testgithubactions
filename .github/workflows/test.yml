@@ -35,3 +35,4 @@ jobs:
     - name: Show command for environment
       run: |
         echo "This will deploy to ${{ needs.selectenv.outputs.environment }}"
+        echo "I added my group to the protection rules."
