@@ -19,22 +19,22 @@ jobs:
     - name: Determine environment
       run: |
         if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env ]]; then
-          echo "::set-output name=environment::csaba-env"
+          echo "::set-output name=myvariable::csaba-env"
         elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env ]]; then
-          echo "::set-output name=environment::andrew-env"
+          echo "::set-output name=myvariable::andrew-env"
         elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env ]]; then
-          echo "::set-output name=environment::joshi-env"
+          echo "::set-output name=myvariable::joshi-env"
         elif [[ "${{ github.ref }}" == refs/heads/feature/my-infra ]]; then
-          echo "::set-output name=environment::my-infra"
+          echo "::set-output name=myvariable::my-infra"
         else
           echo "The branch name does not contain a valid environment."
         fi
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: ${{needs.selectenv.outputs.environment}}
+    environment: ${{needs.selectenv.outputs.myvariable}}
     needs: selectenv
     steps:
     - name: Show command for environment
       run: |
-        echo "This will deploy to ${{needs.selectenv.outputs.environment}}"
+        echo "This will deploy to ${{needs.selectenv.outputs.myvariable}}"
