@@ -8,7 +8,7 @@ on:
       - feature/csaba-env
       - feature/andrew-env
       - feature/joshi-env
-      - feature/infrastructure
+      - feature/my-infra
 
 jobs:
   selectenv:
@@ -24,8 +24,8 @@ jobs:
           echo "::set-output name=environment::andrew-env"
         elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env ]]; then
           echo "::set-output name=environment::joshi-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/infrastructure ]]; then
-          echo "::set-output name=environment::infrastructure"
+        elif [[ "${{ github.ref }}" == refs/heads/feature/my-infra ]]; then
+          echo "::set-output name=environment::my-infra"
         else
           echo "The branch name does not contain a valid environment."
         fi
