@@ -5,33 +5,39 @@ on:
     paths:
       - .github/workflows/test.yml
     branches:
-      - infrastructure/**
+      - feature/csaba-env
+      - feature/andrew-env
+      - feature/joshi-env
+      - feature/my-infra
 
 jobs:
   selectenv:
     name: Select the environment
     runs-on: ubuntu-latest
+    outputs:
+      myvariable: ${{steps.detenv.outputs.myvariable}}
     steps:
     - uses: actions/checkout@v2
     - name: Determine environment
+      id: detenv
       run: |
-        if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env/* ]]; then
-          echo "::set-output name=environment::csaba-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env/* ]]; then
-          echo "::set-output name=environment::andrew-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env/* ]]; then
-          echo "::set-output name=environment::joshi-env"
-        elif [[ "${{ github.ref }}" == refs/heads/feature/infrastructure/* ]]; then
-          echo "::set-output name=environment::infrastructure"
+        if [[ "${{ github.ref }}" == refs/heads/feature/csaba-env ]]; then
+          echo "::set-output name=myvariable::csaba-env"
+        elif [[ "${{ github.ref }}" == refs/heads/feature/andrew-env ]]; then
+          echo "::set-output name=myvariable::andrew-env"
+        elif [[ "${{ github.ref }}" == refs/heads/feature/joshi-env ]]; then
+          echo "::set-output name=myvariable::joshi-env"
+        elif [[ "${{ github.ref }}" == refs/heads/feature/my-infra ]]; then
+          echo "::set-output name=myvariable::my-infra"
         else
           echo "The branch name does not contain a valid environment."
         fi
   showenv:
     name: Show the selected environment
     runs-on: ubuntu-latest
-    environment: ${{ needs.selectenv.outputs.environment }}
+    environment: ${{needs.selectenv.outputs.myvariable}}
     needs: selectenv
     steps:
     - name: Show command for environment
       run: |
-        echo "This will deploy to ${{ needs.selectenv.outputs.environment }}"
+        echo "This will deploy to ${{needs.selectenv.outputs.myvariable}}"
