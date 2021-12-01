@@ -41,3 +41,4 @@ jobs:
     - name: Show command for environment
       run: |
         echo "This will deploy to ${{needs.selectenv.outputs.myvariable}}"
+        echo "I think I should not be able to do this."
