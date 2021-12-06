@@ -5,9 +5,7 @@ on:
     paths:
       - .github/workflows/test.yml
     branches:
-      - feature/csaba-env
-      - feature/andrew-env
-      - feature/joshi-env
+      - feature/*env
       - feature/my-infra
 
 jobs:
